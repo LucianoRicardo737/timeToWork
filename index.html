@@ -27,6 +27,11 @@
 
     let interval;
 
+    let timeToWork = 40;
+    let timeToBreak = 20;
+
+    let workOrBreak = true;
+
     function startTimer() {
       interval = setInterval(function() {
         document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds;
@@ -34,14 +39,30 @@
         if (seconds == 60) {
           seconds = 0;
           minutes++;
-          if (minutes == 60) {
-            minutes = 0;
-            hours++;
+          if(workOrBreak){
+              if (minutes == timeToWork) {
+                minutes = 0;
+                workOrBreak = false;
+                // hours++;
+                
+            }
+          } else {
+            if (minutes == timeToBreak) {
+              minutes = 0;
+              workOrBreak = true;
+              // hours++;
+            }
           }
+         
         }
-      }, 1000);
+      }, 1);
+
+
     }
-    startTimer()
+
+     
+    startTimer();
+  
   
 
     </script>
@@ -52,7 +73,7 @@
         <span id='timer'>0</span>
       </div>
       <div>
-        <button>
+        <!-- <button>
           start
         </button>
         <button>
@@ -60,7 +81,7 @@
         </button>
         <button>
           reset
-        </button>
+        </button> -->
       </div>
   </div>
   </body>

@@ -6,12 +6,9 @@
   "author": "Jane Doe",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch * --exec 'electron .'"
+    "start": "electron ."
   },
   "devDependencies": {
     "electron": "^17.0.0"
-  },
-  "dependencies": {
-    "nodemon": "^2.0.15"
   }
 }
