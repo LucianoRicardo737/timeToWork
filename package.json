@@ -1,0 +1,17 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "main.js",
+  "author": "Jane Doe",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch * --exec 'electron .'"
+  },
+  "devDependencies": {
+    "electron": "^17.0.0"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
