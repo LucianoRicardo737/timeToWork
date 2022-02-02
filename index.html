@@ -6,17 +6,12 @@
     <title>Timer</title>
     <style>   
       .container{ 
-        border-radius: 50%; 
         color: white;  
-        height: 100px;
-        width: 100px;  
-        background-color: rgba(111, 108, 108, 0.63); 
         display: flex;  
         flex-direction: column;
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
-        border: 2px solid gray; 
         font-family: monospace;
       }   
       .containerTimer{
@@ -24,128 +19,206 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        box-sizing: border-box;
-        padding: 5px;
         height: 100px;
         width: 100px;  
+        border: 2px solid gray; 
+        background-color: rgba(111, 108, 108, 0.63); 
+        border-radius: 50%; 
       }
       .containerTimer>h4{
         margin-top: 12px;
         margin-bottom: -10px;
       }
       .containerButtons{
+        display: none;
+        flex-direction: row;
+        justify-content: center;
+        left: 0;
+        /* border: 1px solid red; */
+        margin-top: 4px;
+        gap:0px 10px;
+
+      }
+      .actionButtons{
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+     
+        cursor: pointer;
       }
    
     </style> 
 
   </head> 
-  <body  > 
-    <div class='container'>
+  <body  id='bodyContainer' > 
+    <div  class='container'>
       <div class='containerTimer'>
         <h4 id="title"></h4>
         <p id='timer'>00:00:00</p>
       </div>
-
-     
   </div>
 
-  <div class='containerButtons'> 
-    <button >
+  <div id='containerButtons' class='containerButtons'> 
+    <button id='actionButtonPlay' class='actionButtons play' >
      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg>
      </svg>
    </button>
-   <button>
+   <button id='actionButtonPause' class='actionButtons pause'>
      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
    </button>
-   <button>
+   <button id='actionButtonReplay' class='actionButtons replay'>
      <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/></g><g><g/><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></g></svg>
    </button> 
   </div> 
   <script> 
 
-    // import playIcon from './src/icons/play.svg';
+    const buttonPlay = document.getElementById('actionButtonPlay')
+    const buttonPause = document.getElementById('actionButtonPause')
+    const buttonReplay = document.getElementById('actionButtonReplay')
 
-    // document.getElementById('playButton').src = playIcon;
 
-    function addCero(i){
-     if(i<10)
-       i="0"+i;
-     return i;
-   }
- 
-     const oneMinutInSeconds = 60;
-     const oneHourInMinuts = 60;
- 
-     const startTime = 0;
- 
-     let seconds = 0;
-     let minutes = 0;
-     let hours = 0;
- 
-     let interval;
- 
-     let timeToWork = 40;
-     let timeToBreak = 20;
- 
-     let workOrBreak = true;
- 
-     let timeOut = 1000;
- 
-     const titles = {
-       work:'Work Time',
-       break:'Party Time'
-     }
- 
-     
- 
-     function startTimer() {
- 
-       const titleElement = document.getElementById('title');
-       titleElement.innerHTML = titles.work;
-     
-       interval = setInterval(function() {
-         document.getElementById("timer").innerHTML = addCero(hours) + ":" + addCero(minutes) + ":" + addCero(seconds);
-         seconds++;
-         if (seconds == oneMinutInSeconds) {
- 
-           seconds = startTime;
-           minutes++;
- 
-           if(workOrBreak){
- 
-               if (minutes == timeToWork) {
-                 minutes = startTime;
-                 workOrBreak = false;
-                 titleElement.innerHTML = titles.break;
- 
-                 if(minutes === oneHourInMinuts){
-                   hours++;
-                 }
-                 
-             }
-           } else {
- 
-             if (minutes == timeToBreak) {
-               minutes = startTime;
-               workOrBreak = true;
-               titleElement.innerHTML = titles.work;
-               if(minutes === oneHourInMinuts){
-                   hours++;
-                 }
-             }
-           }
-          
-         }
-       }, timeOut);
- 
- 
-     }
- 
-      
-     startTimer();
+
+const stopSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 8v8H8V8h8m2-2H6v12h12V6z"/></svg>` //eslint-disable-line
+
+const startSvg =  `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg>` //eslint-disable-line
    
+ 
+    const oneMinutInSeconds = 60
+const oneHourInMinuts = 60
+ 
+const startTime = 0
+ 
+let seconds = 0
+let minutes = 0
+let hours = 0
+ 
+let interval
+ 
+let timeToWork = 40
+let timeToBreak = 20
+ 
+let workOrBreak = true
+
+const startTimeOut = 1000
+
+let timeOut = startTimeOut
+
+let stateStart = false
+ 
+const titles = {
+      work:'Work Time',
+      break:'Party Time',
+      pause:'Paused'
+    }
+
+
+    function playAndStopAction(){
+      if(stateStart){
+        replayAction()
+        stateStart = false
+        buttonPlay.innerHTML = startSvg
+      } else {
+        stateStart = true
+        buttonPlay.innerHTML = stopSvg
+      }
+    }
+
+    buttonPlay.addEventListener('click', playAndStopAction)
+
+    let pausedState = false
+    let prevTitle = null
+
+function pauseAction(){
+      if(!pausedState){
+        prevTitle = titleElement.innerHTML
+        titleElement.innerHTML = titles.pause
+        pausedState = true
+      } else {
+        titleElement.innerHTML = prevTitle
+        pausedState = false
+      }
+}
+
+    buttonPause.addEventListener('click',pauseAction)
+
+    function replayAction(){
+      seconds = 0
+      minutes = 0
+      hours = 0
+      titleElement.innerHTML = titles.work
+    }
+
+    buttonReplay.addEventListener('click',replayAction)
+ 
+    function addCero(i){
+      if(i<10)
+        i='0'+i
+  return i
+}
+
+const bodyContainer = document.getElementById('bodyContainer')
+const containerButtons = document.getElementById('containerButtons')
+
+bodyContainer.addEventListener('mouseenter', ()=>{
+  containerButtons.style.display = 'flex'
+})
+
+bodyContainer.addEventListener('mouseleave', ()=>{
+  containerButtons.style.display = 'none'
+})
+
+ 
+ 
+    const titleElement = document.getElementById('title')
+titleElement.innerHTML = titles.work
+
+  
+ 
+function updateTimer(){
+  interval = setInterval(function() {
+        if(!stateStart) return null    
+        if(pausedState) return null
+
+        document.getElementById('timer').innerHTML = addCero(hours) + ':' + addCero(minutes) + ':' + addCero(seconds)
+        seconds++
+        if (seconds == oneMinutInSeconds) {
+ 
+          seconds = startTime
+          minutes++
+ 
+          if(workOrBreak){
+ 
+            if (minutes == timeToWork) {
+              minutes = startTime
+              workOrBreak = false
+              titleElement.innerHTML = titles.break
+ 
+              if(minutes === oneHourInMinuts){
+                hours++
+              }
+                 
+            }
+          } else {
+ 
+            if (minutes == timeToBreak) {
+              minutes = startTime
+              workOrBreak = true
+              titleElement.innerHTML = titles.work
+              if(minutes === oneHourInMinuts){
+                hours++
+              }
+            }
+          }
+          
+        }
+  }, timeOut)
+}
+
+updateTimer()
+ 
    
  
      </script>

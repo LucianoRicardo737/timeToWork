@@ -9,6 +9,21 @@
     "start": "electron ."
   },
   "devDependencies": {
-    "electron": "^17.0.0"
+    "electron": "^17.0.0",
+    "eslint": "8.6.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-plugin-html": "^6.2.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "html"
+    ]
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1"
   }
 }

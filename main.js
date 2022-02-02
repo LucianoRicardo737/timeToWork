@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+const electronReload = require('electron-reload')
 
 function createWindow () {
   // Create the browser window.
@@ -15,7 +16,7 @@ function createWindow () {
     transparent: true, 
     frame: true, 
     center: true,
-    resizable: false,
+    // resizable: false,
     movable: true,
     alwaysOnTop: true,
     skipTaskbar: true,
@@ -25,6 +26,7 @@ function createWindow () {
     opacity: 0,
     roundedCorners: true,
     focusable: false,
+    
     // radii: [50,50,50,50]
   })
 
@@ -34,6 +36,12 @@ function createWindow () {
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
+
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+})
+
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
